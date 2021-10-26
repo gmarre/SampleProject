@@ -1,8 +1,8 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
-import hk.edu.polyu.comp.comp2021.clevis.model.Figure_geo_xy;
+import hk.edu.polyu.comp.comp2021.clevis.model.Figure_geo;
 
-public class Rectangle extends Figure_geo_xy {
+public class Rectangle extends Figure_geo {
     public Rectangle(String name, float x, float y, float w, float h){
         super(name,x,y);
         this.w=w;
@@ -11,4 +11,9 @@ public class Rectangle extends Figure_geo_xy {
     }
     private float w;
     private float h;
+
+    @Override
+    public void move() {
+
+    }
 }
