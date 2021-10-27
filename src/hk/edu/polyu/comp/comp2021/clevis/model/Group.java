@@ -26,4 +26,9 @@ public class Group extends Shape {
     public int getSize() {
         return size;
     }
+
+    @Override
+    void listFigure() {
+        System.out.println("These are the elements of the group : " + this.getSize());
+    }
 }

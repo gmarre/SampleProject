@@ -18,11 +18,26 @@ public class Line extends Figure_geo {
         // Create a test
 
     }
+
+    public float getX2() {
+        return x2;
+    }
+
+    public float getY2() {
+        return y2;
+    }
+
     private float x2;
     private float y2;
 
     @Override
     public void move() {
 
+    }
+
+    @Override
+    void listFigure() {
+        System.out.println("The shape is a Line called : " + this.getName());
+        System.out.println("The coordinate are : (" + this.getX() + "," + this.getY() + ") to (" + this.getX2() + "," + this.getY2()+")");
     }
 }

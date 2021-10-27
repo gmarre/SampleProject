@@ -6,9 +6,12 @@ abstract public class Shape {
         // creer une figure generale avec les parmètres generaux
         this.name=name;
     }
+
     private String name;
 
     public String getName() {
         return name;
     }
+
+    abstract void listFigure();
 }
