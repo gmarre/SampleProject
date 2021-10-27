@@ -9,6 +9,7 @@ public class Line extends Figure_geo {
         super(name,x1,y1);
         this.x2=x2;
         this.y2=y2;
+        //dummy comments
     }
     public void Line_Html(){
        // Create a test
