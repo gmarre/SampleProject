@@ -22,15 +22,37 @@ public class Rectangle extends Figure_geo {
     private float h;
 
     @Override
-    public void move() {
-
+    public void move(float dx,float dy) {
+        setX(getX()+dx);
+        setY(getY()+dy);
+        System.out.println("The new coordinates are : (" + this.getX() + "," + this.getY() + ")");
     }
 
     @Override
-    void listFigure() {
+    public void listFigure() {
         System.out.println("The shape is a rectangle called : " + this.getName());
         System.out.println("The height of the rectangle is : " + this.getH());
         System.out.println("The width of the rectangle is : " + this.getW());
         System.out.println("The coordinate are : (" + this.getX() + "," + this.getY() + ")");
+    }
+
+    @Override
+    public float max_coordinate_x() {
+        return (getX()+w);
+    }
+
+    @Override
+    public float max_coordinate_y() {
+        return getY();
+    }
+
+    @Override
+    public float min_coordinate_x() {
+        return getX();
+    }
+
+    @Override
+    public float min_coordinate_y() {
+        return (getY()-h);
     }
 }

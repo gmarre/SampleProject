@@ -13,15 +13,37 @@ public class Carre extends Figure_geo {
     private float l;
 
     @Override
-    public void move() {
-
+    public void move(float dx, float dy) {
+        setX(getX()+dx);
+        setY(getY()+dy);
+        System.out.println("The new coordinates are : (" + this.getX() + "," + this.getY() + ")");
     }
 
     @Override
-    void listFigure() {
+    public void listFigure() {
         System.out.println("The shape is a square called : " + this.getName());
         System.out.println("The height of the square is : " + this.getL());
         System.out.println("The coordinate are : (" + this.getX() + "," + this.getY() + ")");
 
+    }
+
+    @Override
+    public float max_coordinate_x() {
+        return (getX()+l);
+    }
+
+    @Override
+    public float max_coordinate_y() {
+        return getY();
+    }
+
+    @Override
+    public float min_coordinate_x() {
+        return getX();
+    }
+
+    @Override
+    public float min_coordinate_y() {
+        return (getY()-l);
     }
 }

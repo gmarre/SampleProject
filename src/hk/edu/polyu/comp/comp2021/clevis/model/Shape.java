@@ -7,6 +7,8 @@ abstract public class Shape {
         this.name=name;
     }
 
+    abstract public void move(float dx, float dy);
+
     private String name;
 
     public String getName() {
@@ -14,4 +16,11 @@ abstract public class Shape {
     }
 
     abstract void listFigure();
+
+    abstract public float max_coordinate_x();
+    abstract public float max_coordinate_y();
+    abstract public float min_coordinate_x();
+    abstract public float min_coordinate_y();
+
+
 }

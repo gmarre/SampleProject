@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
-import hk.edu.polyu.comp.comp2021.clevis.model.Figure_geo;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public class Line extends Figure_geo {
     public Line(String name,float x1,float y1,float x2,float y2){
@@ -31,13 +32,37 @@ public class Line extends Figure_geo {
     private float y2;
 
     @Override
-    public void move() {
-
+    public void move(float dx, float dy) {
+        x2 += dx;
+        y2 += dy;
+        setX(getX()+dx);
+        setY(getY()+dy);
+        System.out.println("The new coordinates are : (" + this.getX() + "," + this.getY() + ") to (" + this.getX2() + "," + this.getY2()+")");
     }
 
     @Override
-    void listFigure() {
+    public void listFigure() {
         System.out.println("The shape is a Line called : " + this.getName());
         System.out.println("The coordinate are : (" + this.getX() + "," + this.getY() + ") to (" + this.getX2() + "," + this.getY2()+")");
+    }
+
+    @Override
+    public float max_coordinate_x() {
+        return max(getX(),x2);
+    }
+
+    @Override
+    public float max_coordinate_y() {
+        return max(getY(),y2);
+    }
+
+    @Override
+    public float min_coordinate_x() {
+        return min(getX(),x2);
+    }
+
+    @Override
+    public float min_coordinate_y() {
+        return min(getY(),y2);
     }
 }

@@ -21,7 +21,6 @@ public class Clevis {
                 String command = bfr.readLine();
                 System.out.println("Your command is : " + command);
                 command_Process(command);
-                //bool=true;
             }
             catch (IOException e) {
                // e.printStackTrace();
@@ -33,27 +32,27 @@ public class Clevis {
             catch (Name_already_used n){
                 System.out.println("Name already used, please do it again");
             }
+            catch(FigureNotInGridError g){
+                System.out.println("Your shape could not be drawn on the grid (min X or Y coordinates negative)");
+            }
             catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("You've done a mistake writing your command");;
             }
         // Put a second Exception in case of the user don't enter a valid command *
     }
 
-    public void command_Process(String command) throws Exception {
+    public void command_Process(String command) {
         // Create a test
         String type_Figure_Geo = "";
         StringTokenizer st = new StringTokenizer(command, " ");
         String type_Figure_geo = st.nextToken();
         String name_Figure_geo = "";
         System.out.println(type_Figure_Geo);
-        
-
-        //Figure_geo[] listShapeAll = new Figure_geo[0];
 
         switch (type_Figure_geo) {
             case ("rectangle"):
                 name_Figure_geo = st.nextToken();
-                Checkname(name_Figure_geo);
+                CheckNameAvailability(name_Figure_geo);
                 float x = Integer.parseInt(st.nextToken());
                 float y = Integer.parseInt(st.nextToken());
                 float w = Integer.parseInt(st.nextToken());
@@ -62,22 +61,20 @@ public class Clevis {
                 nbShapeCreate++;
                 //listShapeAll.add(rect);
                 listShapeAll.add(rect);
-                listRectangle.add(rect);
                 break;
             case ("circle"):
                 name_Figure_geo = st.nextToken();
-                Checkname(name_Figure_geo);
+                CheckNameAvailability(name_Figure_geo);
                 x = Integer.parseInt(st.nextToken());
                 y = Integer.parseInt(st.nextToken());
                 float r = Integer.parseInt(st.nextToken());
                 Circle cir = new Circle(name_Figure_geo, x, y, r);
                 nbShapeCreate++;
                 listShapeAll.add(cir);
-                listCircle.add(cir);
                 break;
             case ("line"):
                 name_Figure_geo = st.nextToken();
-                Checkname(name_Figure_geo);
+                CheckNameAvailability(name_Figure_geo);
                 x = Integer.parseInt(st.nextToken());
                 y = Integer.parseInt(st.nextToken());
                 float x2 = Integer.parseInt(st.nextToken());
@@ -85,22 +82,20 @@ public class Clevis {
                 Line li = new Line(name_Figure_geo, x, y, x2, y2);
                 nbShapeCreate++;
                 listShapeAll.add(li);
-                listLine.add(li);
                 break;
             case ("square"):
                 name_Figure_geo = st.nextToken();
-                Checkname(name_Figure_geo);
+                CheckNameAvailability(name_Figure_geo);
                 x = Integer.parseInt(st.nextToken());
                 y = Integer.parseInt(st.nextToken());
                 float l = Integer.parseInt(st.nextToken());
                 Carre car = new Carre(name_Figure_geo, x, y, l);
                 nbShapeCreate++;
                 listShapeAll.add(car);
-                listCarre.add(car);
                 break;
             case ("group"):
                 name_Figure_geo = st.nextToken();
-                Checkname(name_Figure_geo);
+                CheckNameAvailability(name_Figure_geo);
                 int nbShape = st.countTokens();
                 Shape[] listShapeGroup = new Shape[nbShape];
                 for (int i = 0; i < nbShape; i++) {
@@ -115,29 +110,9 @@ public class Clevis {
                 for (int i = 0; i < nbShape; i++) {
                     listShapeAll.remove(listShapeGroup[i]);
                 }
-                for (Shape elmtShapeGroup : listShapeGroup){
-                   String classElmt = Objects.toString(elmtShapeGroup.getClass());
-                    switch (classElmt) {
-                        case ("class hk.edu.polyu.comp.comp2021.clevis.model.Rectangle"):
-                            listRectangle.remove(elmtShapeGroup);
-                            break;
-                        case ("class hk.edu.polyu.comp.comp2021.clevis.model.Circle"):
-                            listCircle.remove(elmtShapeGroup);
-                            break;
-                        case("class hk.edu.polyu.comp.comp2021.clevis.model.Carre"):
-                            listCarre.remove(elmtShapeGroup);
-                            break;
-                        case("class hk.edu.polyu.comp.comp2021.clevis.model.Line"):
-                            listLine.remove(elmtShapeGroup);
-                            break;
-                    }
-                }
-
                 Group gr = new Group(name_Figure_geo, nbShape, listShapeGroup);
                 listShapeAll.add(gr);
                 nbShapeCreate = nbShapeCreate - nbShape + 1;
-                nbGroupCreate++;
-                listGroup.add(gr);
                 System.out.println("les elements de listShapeAll sont ");
                 for (Shape elt : listShapeAll) {
                     System.out.println(elt.getName());
@@ -145,36 +120,20 @@ public class Clevis {
                 break;
 
             case ("ungroup"):
-                for (Group group : listGroup) {
-                   if (group.getName().equals(name_Figure_geo)){
-                       deleteFigure(group);
-                       listShapeAll.remove(group);
-                       listGroup.remove(group);
-                       int nbshape= group.getSize();
+                for (Shape elmt : listShapeAll) {
+                   if (elmt.getName().equals(name_Figure_geo)){
+                       deleteFigure(elmt);
+                       listShapeAll.remove(elmt);
+                       Group group = (Group) elmt;
+                       int nbshape= (group).getSize();
                        for(int i=0; i<nbshape;i++){
                            listShapeAll.add(group.getListShape()[i]);
-                           String classElmt = Objects.toString(group.getListShape()[i].getClass());
-                           switch (classElmt) {
-                               case ("class hk.edu.polyu.comp.comp2021.clevis.model.Rectangle"):
-                                   listRectangle.add((Rectangle) group.getListShape()[i]);
-                                   break;
-                               case ("class hk.edu.polyu.comp.comp2021.clevis.model.Circle"):
-                                   listCircle.add((Circle) group.getListShape()[i]);
-                                   break;
-                               case("class hk.edu.polyu.comp.comp2021.clevis.model.Carre"):
-                                   listCarre.add((Carre) group.getListShape()[i]);
-                                   break;
-                               case("class hk.edu.polyu.comp.comp2021.clevis.model.Line"):
-                                   listLine.add((Line) group.getListShape()[i]);
-                                   break;
-                           }
                        }
                    }
                 }
                 for (Shape elt : listShapeAll) {
                     System.out.println(elt.getName());
                 }
-                nbGroupCreate--;
                 break;
 
 
@@ -189,58 +148,54 @@ public class Clevis {
                 break;
 
             case("list") :
-                for (Shape elmtRectangle : listRectangle) {
-                    if (elmtRectangle.getName().equals(name_Figure_geo)) {
-                        elmtRectangle.listFigure();
-                        break;
+                for (Shape elmtShapeAll : listShapeAll) {
+                    if (elmtShapeAll.getName().equals(name_Figure_geo)){
+                        elmtShapeAll.listFigure();
                     }
-                }
-                for (Shape elmtSquare : listCarre) {
-                    if (elmtSquare.getName().equals(name_Figure_geo)) {
-                        elmtSquare.listFigure();
-                        break;
-                    }
-                }
-                for (Shape elmtCircle : listCircle) {
-                    if (elmtCircle.getName().equals(name_Figure_geo)) {
-                        elmtCircle.listFigure();
-                        break;
-                    }
-                }
-                for (Shape elmtLine : listLine) {
-                    if (elmtLine.getName().equals(name_Figure_geo)) {
-                        elmtLine.listFigure();
-                        break;
-                    }
-                }
-                for (Shape elmtGroup : listGroup) {
-                    if (elmtGroup.getName().equals(name_Figure_geo)) {
-                        elmtGroup.listFigure();
-                        break;
-                    }
+                    break;
                 }
                 break;
 
             case("listAll") :
                 for (Shape elmtShapeAll : listShapeAll) {
+                    elmtShapeAll.listFigure();
+                }
+                break;
 
-                    String classElmt = Objects.toString(elmtShapeAll.getClass());
-                    switch (classElmt) {
-                        case ("class hk.edu.polyu.comp.comp2021.clevis.model.Rectangle"):
-                            elmtShapeAll.listFigure();
-                            break;
-                        case ("class hk.edu.polyu.comp.comp2021.clevis.model.Circle"):
-                            elmtShapeAll.listFigure();
-                            break;
-                        case("class hk.edu.polyu.comp.comp2021.clevis.model.Carre"):
-                            elmtShapeAll.listFigure();
-                            break;
-                        case("class hk.edu.polyu.comp.comp2021.clevis.model.Line"):
-                            elmtShapeAll.listFigure();
-                            break;
+            case("quit") :
+                System.out.println("Thanks, for your participation to Clevis");
+                System.exit(0);
+                break;
+
+            case("move"):
+                name_Figure_geo = st.nextToken();
+                float dx = Float.parseFloat(st.nextToken());
+                float dy = Float.parseFloat(st.nextToken());
+                for (Shape elmtShapeAll : listShapeAll) {
+                    if (elmtShapeAll.getName().equals(name_Figure_geo)){
+                        elmtShapeAll.move(dx,dy);
                     }
                 }
                 break;
+
+            case("boundingbox"):
+                name_Figure_geo = st.nextToken();
+                float boundingboxX = 0;
+                float boundingboxY = 0;
+                float boundingboxW = 0;
+                float boundingboxH = 0;
+
+                for (Shape elmtShapeAll : listShapeAll) {
+                    if (elmtShapeAll.getName().equals(name_Figure_geo)){
+                        boundingboxX = elmtShapeAll.min_coordinate_x();
+                        boundingboxY = elmtShapeAll.max_coordinate_y();
+                        boundingboxW = elmtShapeAll.max_coordinate_x() - elmtShapeAll.min_coordinate_x();
+                        boundingboxH = elmtShapeAll.max_coordinate_y() - elmtShapeAll.min_coordinate_y();
+                    }
+                }
+                System.out.println(boundingboxX + " " +  boundingboxY + " " + boundingboxW + " " + boundingboxH);
+                break;
+
             default:
                 throw new Fig_not_recognized();
                 //Create an error corresponding to * in case of a user command error
@@ -248,18 +203,19 @@ public class Clevis {
     }
 
 
-    static class Fig_not_recognized extends Error{}
-
-    static class Name_already_used extends Error{}
-
-    public void Checkname(String name_Figure_Geo){
-        for (int i=0; i<listShapeAll.size();i++){
-            if (listShapeAll.get(i).getName().equals(name_Figure_Geo)){
+    public void CheckNameAvailability(String name_Figure_Geo){
+        for (Shape shape : listShapeAll) {
+            if (shape.getName().equals(name_Figure_Geo)) {
                 throw new Name_already_used();
             }
         }
     }
 
+    public void CheckFigurePositiveXY(Shape shape){
+        if (shape.min_coordinate_x()<0 || shape.min_coordinate_y()<0 ){
+            throw new FigureNotInGridError();
+        }
+    }
 
     public void deleteFigure(Shape n) {
         n = null;
@@ -267,14 +223,14 @@ public class Clevis {
     }
 
     private List<Shape> listShapeAll=new ArrayList<>();
-    private List<Group> listGroup =new ArrayList<>();
-    private List<Rectangle> listRectangle =new ArrayList<>();
-    private List<Carre> listCarre =new ArrayList<>();
-    private List<Circle> listCircle =new ArrayList<>();
-    private List<Line> listLine =new ArrayList<>();
 
-    //private Shape[][] listGroup;
     private int nbShapeCreate=0;
-    private int nbGroupCreate=0;
+
+
+    static class Fig_not_recognized extends Error{}
+
+    static class Name_already_used extends Error{}
+
+    static class FigureNotInGridError extends Error{}
 
 }

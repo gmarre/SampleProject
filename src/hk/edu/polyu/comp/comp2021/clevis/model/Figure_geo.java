@@ -1,5 +1,4 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
-import java.io.*;
 
 abstract public class Figure_geo extends Shape {
 
@@ -18,13 +17,21 @@ abstract public class Figure_geo extends Shape {
         return y;
     }
 
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
 
     private float x;
     private float y;
 
-    abstract public void move();
+    abstract public void move(float dx, float dy);
 
-    abstract void listFigure();
+    abstract public void listFigure();
+
 
 
 }
