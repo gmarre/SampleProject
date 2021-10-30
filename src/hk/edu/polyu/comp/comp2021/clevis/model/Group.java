@@ -6,16 +6,10 @@ public class Group extends Shape {
     private Shape[] listShape;
     //private List<Shape> listShapeGr=new ArrayList<>();
     private int size;
-    public Group(String name, int nbShape, Shape[] listShapeGroup) {
-
-        super(name);
+    public Group(String name,int zOrder, int nbShape, Shape[] listShapeGroup) {
+        super(name,zOrder);
         this.listShape=listShapeGroup;
         this.size=nbShape;
-        System.out.println("The group is called "+name+ " and the name of the different shapes are ");
-        for (Shape elt: listShape){
-            System.out.println(elt.getName());
-        }
-
     }
 
     public Shape[] getListShape() {
@@ -35,7 +29,13 @@ public class Group extends Shape {
 
     @Override
     void listFigure() {
-        System.out.println("These are the elements of the group : " + this.getSize());
+        System.out.println("Group Name = "+ getName() + " composed by : ");
+        String spaces = String.format("%"+getSize()+"s","");
+        for (Shape elt: listShape){
+            System.out.format(spaces);
+            elt.listFigure();
+
+        }
     }
 
     @Override

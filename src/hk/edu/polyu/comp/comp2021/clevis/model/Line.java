@@ -4,10 +4,10 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class Line extends Figure_geo {
-    public Line(String name,float x1,float y1,float x2,float y2){
+    public Line(String name,int zOrder,float x1,float y1,float x2,float y2){
         //html & txt process
         // creating figure
-        super(name,x1,y1);
+        super(name,zOrder , x1, y1);
         this.x2=x2;
         this.y2=y2;
     }
@@ -42,8 +42,8 @@ public class Line extends Figure_geo {
 
     @Override
     public void listFigure() {
-        System.out.println("The shape is a Line called : " + this.getName());
-        System.out.println("The coordinate are : (" + this.getX() + "," + this.getY() + ") to (" + this.getX2() + "," + this.getY2()+")");
+        System.out.print("Line Name : " + this.getName() + " | ");
+        System.out.println("Coordinates : (" + this.getX() + "," + this.getY() + ") to (" + this.getX2() + "," + this.getY2()+")");
     }
 
     @Override

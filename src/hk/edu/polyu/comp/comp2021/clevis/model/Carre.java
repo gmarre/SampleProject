@@ -1,8 +1,8 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
 public class Carre extends Figure_geo {
-    public Carre(String name,float x,float y,float l){
-        super(name,x,y);
+    public Carre(String name,int zOrder,float x,float y,float l){
+        super(name,zOrder , x, y);
         this.l=l;
     }
 
@@ -21,10 +21,9 @@ public class Carre extends Figure_geo {
 
     @Override
     public void listFigure() {
-        System.out.println("The shape is a square called : " + this.getName());
-        System.out.println("The height of the square is : " + this.getL());
-        System.out.println("The coordinate are : (" + this.getX() + "," + this.getY() + ")");
-
+        System.out.print("Square Name : " + this.getName() + " | ");
+        System.out.print("Height : " + this.getL() + " | ");
+        System.out.println("Coordinates : (" + this.getX() + "," + this.getY() + ") | ");
     }
 
     @Override

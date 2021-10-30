@@ -57,7 +57,7 @@ public class Clevis {
                 float y = Integer.parseInt(st.nextToken());
                 float w = Integer.parseInt(st.nextToken());
                 float h = Integer.parseInt(st.nextToken());
-                Rectangle rect = new Rectangle(name_Figure_geo, x, y, w, h);
+                Rectangle rect = new Rectangle(name_Figure_geo,nbShapeCreate, x, y, w, h);
                 nbShapeCreate++;
                 //listShapeAll.add(rect);
                 listShapeAll.add(rect);
@@ -68,7 +68,7 @@ public class Clevis {
                 x = Integer.parseInt(st.nextToken());
                 y = Integer.parseInt(st.nextToken());
                 float r = Integer.parseInt(st.nextToken());
-                Circle cir = new Circle(name_Figure_geo, x, y, r);
+                Circle cir = new Circle(name_Figure_geo,nbShapeCreate, x, y, r);
                 nbShapeCreate++;
                 listShapeAll.add(cir);
                 break;
@@ -79,7 +79,7 @@ public class Clevis {
                 y = Integer.parseInt(st.nextToken());
                 float x2 = Integer.parseInt(st.nextToken());
                 float y2 = Integer.parseInt(st.nextToken());
-                Line li = new Line(name_Figure_geo, x, y, x2, y2);
+                Line li = new Line(name_Figure_geo, nbShapeCreate, x, y, x2, y2);
                 nbShapeCreate++;
                 listShapeAll.add(li);
                 break;
@@ -89,7 +89,7 @@ public class Clevis {
                 x = Integer.parseInt(st.nextToken());
                 y = Integer.parseInt(st.nextToken());
                 float l = Integer.parseInt(st.nextToken());
-                Carre car = new Carre(name_Figure_geo, x, y, l);
+                Carre car = new Carre(name_Figure_geo,nbShapeCreate, x, y, l);
                 nbShapeCreate++;
                 listShapeAll.add(car);
                 break;
@@ -110,13 +110,9 @@ public class Clevis {
                 for (int i = 0; i < nbShape; i++) {
                     listShapeAll.remove(listShapeGroup[i]);
                 }
-                Group gr = new Group(name_Figure_geo, nbShape, listShapeGroup);
+                Group gr = new Group(name_Figure_geo,nbShapeCreate, nbShape, listShapeGroup);
                 listShapeAll.add(gr);
                 nbShapeCreate = nbShapeCreate - nbShape + 1;
-                System.out.println("les elements de listShapeAll sont ");
-                for (Shape elt : listShapeAll) {
-                    System.out.println(elt.getName());
-                }
                 break;
 
             case ("ungroup"):
@@ -148,6 +144,7 @@ public class Clevis {
                 break;
 
             case("list") :
+                name_Figure_geo = st.nextToken();
                 for (Shape elmtShapeAll : listShapeAll) {
                     if (elmtShapeAll.getName().equals(name_Figure_geo)){
                         elmtShapeAll.listFigure();
@@ -158,6 +155,7 @@ public class Clevis {
 
             case("listAll") :
                 for (Shape elmtShapeAll : listShapeAll) {
+                    System.out.print("•");
                     elmtShapeAll.listFigure();
                 }
                 break;

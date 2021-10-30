@@ -1,15 +1,18 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
 abstract public class Shape {
-    public Shape(String name) {
+    public Shape(String name, int zOrder) {
         //ecrire dans les fichiers txt et html
         // creer une figure generale avec les parmètres generaux
         this.name=name;
+        this.zOrder = zOrder;
     }
 
     abstract public void move(float dx, float dy);
 
     private String name;
+
+    private int zOrder = 0;
 
     public String getName() {
         return name;

@@ -1,10 +1,9 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
 public class Circle extends Figure_geo {
-    public Circle(String name,float x, float y,float r){
-        super(name,x,y);
+    public Circle(String name,int zOrder,float x, float y,float r){
+        super(name,zOrder , x, y);
         this.r = r;
-        System.out.println("Vous avez créé un cercle aux coordonées :(" + this.getX() +"," + this.getY() + ") de nom : " + this.getName() + "de centre : " + this.r );
     }
 
     public float getR() {
@@ -22,9 +21,9 @@ public class Circle extends Figure_geo {
 
     @Override
     public void listFigure() {
-        System.out.println("The shape is a circle called : " + this.getName());
-        System.out.println("The radius of the circle is : " + this.getR());
-        System.out.println("The coordinate are : (" + this.getX() + "," + this.getY() + ")");
+        System.out.print("Circle Name : " + this.getName() + " | ");
+        System.out.print("Radius : " + this.getR() + " | ");
+        System.out.println("Coordinates : (" + this.getX() + "," + this.getY() + ") | ");
     }
 
     @Override

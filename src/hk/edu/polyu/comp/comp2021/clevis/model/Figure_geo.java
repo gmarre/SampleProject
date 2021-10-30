@@ -2,10 +2,10 @@ package hk.edu.polyu.comp.comp2021.clevis.model;
 
 abstract public class Figure_geo extends Shape {
 
-    public Figure_geo(String name,float x, float y) {
+    public Figure_geo(String name,int zOrder,float x, float y) {
         //ecrire dans les fichiers txt et html
         // creer une figure generale avec les parmètres generaux
-        super(name);
+        super(name,zOrder);
         this.x = x;
         this.y = y;
     }
