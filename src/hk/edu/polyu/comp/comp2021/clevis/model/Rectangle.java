@@ -7,7 +7,8 @@ public class Rectangle extends Figure_geo {
         super(name,x,y);
         this.w=w;
         this.h=h;
-        System.out.println("Vous avez créé une rectangle aux coordonées :(" + this.getX() +"," + this.getY() + ") de nom : " + this.getName());
+        System.out.println("You have created a rectangle called: '" + this.getName() + "'\nwith coordinates: (" + this.getX() + "," + this.getY()
+                + ")\nwidth: " + this.w + " and height: " + this.h);
     }
     private float w;
     private float h;

@@ -11,16 +11,27 @@ public class Clevis {
         //Boucle while + case + depending of the case => different actions + quit
         boolean bool = false;
 
-        System.out.println("Hi, Welcome User in the Command LinE Vector graphIcs Software (CLEVIS)");
+        System.out.println("__________________________________________________________________________");
+        System.out.println("|                                                                        |");
+        System.out.println("|  Hi Friends! Welcome to Command LinE Vector graphIcs Software (CLEVIS) |");
+        System.out.println("|                                                                        |");
+        System.out.println("|_______________Follow this format to create a shape:____________________|");
+        System.out.println("|                                                                        |");
+        System.out.println("|    1. Line: [line][li_ne][x1][y2][x1][y2] where x1,y1,x2,y2 are int    |");
+        System.out.println("|    2. Rectangle: [rectangle][rec][x][y][w][h] where x,y,w,h are int    |");
+        System.out.println("|    3. Circle: [circle][cir][x][y][r] where x,y,r are int               |");
+        System.out.println("|    4. Square: [square][s][x][y][l] where x,y,r are int                 |");
+        System.out.println("|________________________________________________________________________|");
 
         while (!bool)
             try {
                 InputStreamReader isr = new InputStreamReader(System.in);
                 BufferedReader bfr = new BufferedReader(isr);
-                System.out.println("What do you want to create ?");
+                System.out.println("\nWhat do you want to create ?");
                 String command = bfr.readLine();
                 System.out.println("Your command is : " + command);
                 command_Process(command);
+                //CheckIfEmpty(command);
                 //bool=true;
             }
             catch (IOException e) {
@@ -28,16 +39,18 @@ public class Clevis {
                 System.out.println("Please, do it again");
             }
             catch (Fig_not_recognized f){
-                System.out.println("Figure not recognized, please do it again");
+                System.out.println("Figure not recognized, please try again");
             }
             catch (Name_already_used n){
-                System.out.println("Name already used, please do it again");
+                System.out.println("Name already been used, please try again");
             }
             catch (Exception e) {
                 e.printStackTrace();
-            }
+                }
+            /*catch (Empty_input em){
+                System.out.println("No input. Please try again");*/
+        }
         // Put a second Exception in case of the user don't enter a valid command *
-    }
 
     public void command_Process(String command) throws Exception {
         // Create a test
@@ -47,6 +60,7 @@ public class Clevis {
         System.out.println(type_Figure_Geo);
         String name_Figure_geo = st.nextToken();
         Checkname(name_Figure_geo);
+        //CheckIfEmpty(command);
         //Figure_geo[] listShapeAll = new Figure_geo[0];
 
         switch (type_Figure_geo) {
@@ -77,11 +91,11 @@ public class Clevis {
                 nbShapeCreate++;
                 listShapeAll.add(li);
                 break;
-            case ("carre"):
+            case ("square"):
                 x = Integer.parseInt(st.nextToken());
                 y = Integer.parseInt(st.nextToken());
                 float l = Integer.parseInt(st.nextToken());
-                Carre car = new Carre(name_Figure_geo, x, y, l);
+                Square car = new Square(name_Figure_geo, x, y, l);
                 nbShapeCreate++;
                 listShapeAll.add(car);
                 break;
@@ -147,6 +161,8 @@ public class Clevis {
 
     static class Name_already_used extends Error{}
 
+    //static class Empty_input extends Error{}
+
     public void Checkname(String name_Figure_Geo){
         for (int i=0; i<listShapeAll.size();i++){
             if (listShapeAll.get(i).getName().equals(name_Figure_Geo)){
@@ -154,6 +170,12 @@ public class Clevis {
             }
         }
     }
+
+    /*public void CheckIfEmpty(String command){
+            if (command == null){
+                throw new Empty_input();
+            }
+    }*/
 
     public void deleteFigure(Shape n) {
         n = null;
