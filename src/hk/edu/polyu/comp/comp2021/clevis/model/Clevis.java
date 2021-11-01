@@ -12,6 +12,17 @@ public class Clevis {
         boolean bool = false;
 
         System.out.println("Hi, Welcome User in the Command LinE Vector graphIcs Software (CLEVIS)");
+        System.out.println("__________________________________________________________________________");
+        System.out.println("|                                                                        |");
+        System.out.println("|  Hi Friends! Welcome to Command LinE Vector graphIcs Software (CLEVIS) |");
+        System.out.println("|                                                                        |");
+        System.out.println("|_______________Follow this format to create a shape:____________________|");
+        System.out.println("|                                                                        |");
+        System.out.println("|    1. Line: [line][li_ne][x1][y2][x1][y2] where x1,y1,x2,y2 are int    |");
+        System.out.println("|    2. Rectangle: [rectangle][rec][x][y][w][h] where x,y,w,h are int    |");
+        System.out.println("|    3. Circle: [circle][cir][x][y][r] where x,y,r are int               |");
+        System.out.println("|    4. Square: [square][s][x][y][l] where x,y,r are int                 |");
+        System.out.println("|________________________________________________________________________|");
 
         while (!bool)
             try {
@@ -24,13 +35,13 @@ public class Clevis {
             }
             catch (IOException e) {
                // e.printStackTrace();
-                System.out.println("Please, do it again");
+                System.out.println("Please, try again");
             }
             catch (Fig_not_recognized f){
                 System.out.println("Figure not recognized, please do it again");
             }
             catch (Name_already_used n){
-                System.out.println("Name already used, please do it again");
+                System.out.println("Name already been used, please do it again");
             }
             catch(FigureNotInGridError g){
                 System.out.println("Your shape could not be drawn on the grid (min X or Y coordinates negative)");
@@ -89,7 +100,7 @@ public class Clevis {
                 x = Integer.parseInt(st.nextToken());
                 y = Integer.parseInt(st.nextToken());
                 float l = Integer.parseInt(st.nextToken());
-                Carre car = new Carre(name_Figure_geo,nbShapeCreate, x, y, l);
+                Square car = new Square(name_Figure_geo,nbShapeCreate, x, y, l);
                 nbShapeCreate++;
                 listShapeAll.add(car);
                 break;

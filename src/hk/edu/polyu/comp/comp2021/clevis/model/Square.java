@@ -1,7 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
-public class Carre extends Figure_geo {
-    public Carre(String name,int zOrder,float x,float y,float l){
+public class Square extends Figure_geo {
+    public Square(String name, int zOrder, float x, float y, float l){
         super(name,zOrder , x, y);
         this.l=l;
     }
