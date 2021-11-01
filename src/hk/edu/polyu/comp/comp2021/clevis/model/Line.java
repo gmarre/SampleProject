@@ -32,9 +32,13 @@ public class Line extends Figure_geo {
     private float y2;
 
     public float Right_hand_equation(float x){
+
         float a = (getY2()-getY())/(getX2()-getY2());
         float b = (getY()-a*getX());
-        return a*x+b;
+        if (x>getX() && x<getX2()){
+            return a*x+b;
+        }
+        return -1;
     }
 
     @Override
@@ -74,10 +78,10 @@ public class Line extends Figure_geo {
 
     @Override
     public boolean distancePoint(float x, float y) {
-        double ymax = Right_hand_equation(x) + 0.05;
-        double ymin = Right_hand_equation(x) - 0.05;
-        if(y < ymax && y > ymin){
-            return true;
+        if (Right_hand_equation(x)!=-1){
+            double ymax = Right_hand_equation(x) + 0.05;
+            double ymin = Right_hand_equation(x) - 0.05;
+            return y < ymax && y > ymin;
         }
         else{
             return false;
