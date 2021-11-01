@@ -10,8 +10,6 @@ public class Line extends Figure_geo {
         super(name,zOrder , x1, y1);
         this.x2=x2;
         this.y2=y2;
-        System.out.println("You have created a line called: '" + this.getName() + "'\nwith coordinates: (" + this.getX() + "," + this.getY()
-                + ") and (" + this.x2 + "," + this.y2 + ")");
     }
     public void Line_Html(){
        // Create a test
