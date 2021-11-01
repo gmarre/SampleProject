@@ -31,13 +31,19 @@ public class Line extends Figure_geo {
     private float x2;
     private float y2;
 
+    public float Right_hand_equation(float x){
+        float a = (getY2()-getY())/(getX2()-getY2());
+        float b = (getY()-a*getX());
+        return a*x+b;
+    }
+
     @Override
     public void move(float dx, float dy) {
         x2 += dx;
         y2 += dy;
         setX(getX()+dx);
         setY(getY()+dy);
-        System.out.println("The new coordinates are : (" + this.getX() + "," + this.getY() + ") to (" + this.getX2() + "," + this.getY2()+")");
+        System.out.println("The new line coordinates are : (" + this.getX() + "," + this.getY() + ") to (" + this.getX2() + "," + this.getY2()+")");
     }
 
     @Override
@@ -64,5 +70,17 @@ public class Line extends Figure_geo {
     @Override
     public float min_coordinate_y() {
         return min(getY(),y2);
+    }
+
+    @Override
+    public boolean distancePoint(float x, float y) {
+        double ymax = Right_hand_equation(x) + 0.05;
+        double ymin = Right_hand_equation(x) - 0.05;
+        if(y < ymax && y > ymin){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

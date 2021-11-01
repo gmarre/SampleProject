@@ -22,7 +22,7 @@ public class Rectangle extends Figure_geo {
     public void move(float dx,float dy) {
         setX(getX()+dx);
         setY(getY()+dy);
-        System.out.println("The new coordinates are : (" + this.getX() + "," + this.getY() + ")");
+        System.out.println("The new rectangle coordinates are : (" + this.getX() + "," + this.getY() + ")");
     }
 
     @Override
@@ -52,5 +52,16 @@ public class Rectangle extends Figure_geo {
     @Override
     public float min_coordinate_y() {
         return (getY()-h);
+    }
+
+    @Override
+    public boolean distancePoint(float x, float y) {
+
+        if (x > (this.getX() - 0.05) && x < (this.getX() + this.getW() + 0.05) && y > (this.getY() + 0.05) && y < (this.getY() - this.getH() - 0.05)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

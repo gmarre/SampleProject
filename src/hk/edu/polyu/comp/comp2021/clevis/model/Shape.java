@@ -14,6 +14,10 @@ abstract public class Shape {
 
     private int zOrder = 0;
 
+    public int getzOrder() {
+        return zOrder;
+    }
+
     public String getName() {
         return name;
     }
@@ -25,5 +29,5 @@ abstract public class Shape {
     abstract public float min_coordinate_x();
     abstract public float min_coordinate_y();
 
-
+    abstract public boolean distancePoint(float x, float y);
 }

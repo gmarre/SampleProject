@@ -16,7 +16,7 @@ public class Circle extends Figure_geo {
     public void move(float dx, float dy) {
         setX(getX()+dx);
         setY(getY()+dy);
-        System.out.println("The new coordinates are : (" + this.getX() + "," + this.getY() + ")");
+        System.out.println("The new Circle coordinates are : (" + this.getX() + "," + this.getY() + ")");
     }
 
     @Override
@@ -44,5 +44,16 @@ public class Circle extends Figure_geo {
     @Override
     public float min_coordinate_y() {
         return (getY()-r);
+    }
+
+    @Override
+    public boolean distancePoint(float x, float y) {
+
+        if(Math.sqrt((Math.pow((this.getX()-x),2) + Math.pow((this.getY()-y),2))) < this.getR() + 0.05){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

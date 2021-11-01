@@ -11,7 +11,6 @@ public class Clevis {
         //Boucle while + case + depending of the case => different actions + quit
         boolean bool = false;
 
-        System.out.println("Hi, Welcome User in the Command LinE Vector graphIcs Software (CLEVIS)");
         System.out.println("__________________________________________________________________________");
         System.out.println("|                                                                        |");
         System.out.println("|  Hi Friends! Welcome to Command LinE Vector graphIcs Software (CLEVIS) |");
@@ -45,6 +44,9 @@ public class Clevis {
             }
             catch(FigureNotInGridError g){
                 System.out.println("Your shape could not be drawn on the grid (min X or Y coordinates negative)");
+            }
+            catch(Pick_and_move_Error pm){
+                System.out.println("Pick and move impossible, no shape found in these coordinates");
             }
             catch (Exception e) {
                 System.out.println("You've done a mistake writing your command");;
@@ -205,6 +207,33 @@ public class Clevis {
                 System.out.println(boundingboxX + " " +  boundingboxY + " " + boundingboxW + " " + boundingboxH);
                 break;
 
+            case("pick-and-move"):
+                float pmX = Float.parseFloat(st.nextToken());
+                float pmY = Float.parseFloat(st.nextToken());
+                float pmDx = Float.parseFloat(st.nextToken());
+                float pmDy = Float.parseFloat(st.nextToken());
+                Shape shapeToMove = null;
+                int maxzOrder = 0;
+                List<Shape> listShapePM=new ArrayList<>();
+                for (Shape elmtShapeAll : listShapeAll){
+                    if (elmtShapeAll.distancePoint(pmX, pmY)){
+                        listShapePM.add(elmtShapeAll);
+                    }
+                }
+                if (listShapePM.isEmpty()){
+                    throw new Pick_and_move_Error();
+                }
+                else{
+                    for (Shape elmtShapePM : listShapePM){
+                        if (elmtShapePM.getzOrder() >= maxzOrder){
+                            shapeToMove = elmtShapePM;
+                        }
+                    }
+                    shapeToMove.move(pmDx,pmDy);
+                }
+
+                break;
+
             default:
                 throw new Fig_not_recognized();
                 //Create an error corresponding to * in case of a user command error
@@ -241,5 +270,7 @@ public class Clevis {
     static class Name_already_used extends Error{}
 
     static class FigureNotInGridError extends Error{}
+
+    static class Pick_and_move_Error extends Error{}
 
 }

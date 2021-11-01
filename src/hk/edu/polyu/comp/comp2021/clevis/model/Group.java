@@ -81,4 +81,14 @@ public class Group extends Shape {
         }
         return min_y_shape;
     }
+
+    @Override
+    public boolean distancePoint(float x, float y) {
+        for (Shape elt : this.listShape ){
+            if (elt.distancePoint(x,y)){
+                return true;
+            }
+        }
+        return false;
+    }
 }
