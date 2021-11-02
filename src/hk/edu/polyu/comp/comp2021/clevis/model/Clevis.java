@@ -102,9 +102,9 @@ public class Clevis {
                 x = Integer.parseInt(st.nextToken());
                 y = Integer.parseInt(st.nextToken());
                 float l = Integer.parseInt(st.nextToken());
-                Square car = new Square(name_Figure_geo,nbShapeCreate, x, y, l);
+                Square sq = new Square(name_Figure_geo, x, y, l);
                 nbShapeCreate++;
-                listShapeAll.add(car);
+                listShapeAll.add(sq);
                 break;
             case ("group"):
                 name_Figure_geo = st.nextToken();
