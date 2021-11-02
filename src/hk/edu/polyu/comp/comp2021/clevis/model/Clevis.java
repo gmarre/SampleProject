@@ -125,23 +125,24 @@ public class Clevis {
                 }
                 Group gr = new Group(name_Figure_geo,nbShapeCreate, nbShape, listShapeGroup);
                 listShapeAll.add(gr);
+                listGroup.add(gr);
                 nbShapeCreate = nbShapeCreate - nbShape + 1;
                 break;
 
             case ("ungroup"):
-                for (Shape elmt : listShapeAll) {
-                   if (elmt.getName().equals(name_Figure_geo)){
-                       deleteFigure(elmt);
-                       listShapeAll.remove(elmt);
-                       Group group = (Group) elmt;
-                       int nbshape= (group).getSize();
-                       for(int i=0; i<nbshape;i++){
-                           listShapeAll.add(group.getListShape()[i]);
-                       }
-                   }
-                }
-                for (Shape elt : listShapeAll) {
-                    System.out.println(elt.getName());
+                name_Figure_geo = st.nextToken();
+                for (Group group : listGroup) {
+                    if (group.getName().equals(name_Figure_geo)) {
+                        deleteFigure(group);
+                        listShapeAll.remove(group);
+                        listGroup.remove(group);
+                        int nbshape= group.getSize();
+                        for(int i=0; i<nbshape;i++) {
+                            listShapeAll.add(group.getListShape()[i]);
+                            System.out.println(group.getListShape()[i].getName());
+                        }
+                    }
+                    break;
                 }
                 break;
 
@@ -259,7 +260,7 @@ public class Clevis {
         n = null;
         System.gc();
     }
-
+    private List<Group> listGroup =new ArrayList<>();
     private List<Shape> listShapeAll=new ArrayList<>();
 
     private int nbShapeCreate=0;
