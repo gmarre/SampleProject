@@ -56,4 +56,33 @@ public class Square extends Figure_geo {
             return false;
         }
     }
+
+
+    @Override
+    public boolean intersect(Line other) {
+        return false;
+    }
+
+    @Override
+    public boolean intersect(Circle other) {
+        return false;
+    }
+
+    @Override
+    public boolean intersect(Rectangle other) {
+        return false;
+    }
+
+    @Override
+    public boolean intersect(Square other) {
+        return false;
+    }
+
+    @Override
+    public boolean intersect(Group other) {
+        return false;
+    }
+
+
+
 }

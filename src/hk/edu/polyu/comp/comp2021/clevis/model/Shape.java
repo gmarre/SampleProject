@@ -24,10 +24,20 @@ abstract public class Shape {
 
     abstract void listFigure();
 
+
     abstract public float max_coordinate_x();
     abstract public float max_coordinate_y();
     abstract public float min_coordinate_x();
     abstract public float min_coordinate_y();
 
     abstract public boolean distancePoint(float x, float y);
+
+    abstract public boolean intersect(Line other);
+    abstract public boolean intersect(Circle other);
+    abstract public boolean intersect(Rectangle other);
+    abstract public boolean intersect(Square other);
+    abstract public boolean intersect(Group other);
+
+
+
 }

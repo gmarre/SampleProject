@@ -234,6 +234,51 @@ public class Clevis {
                 }
 
                 break;
+            case("intersect"):
+                name_Figure_geo = st.nextToken();
+                String name_Figure_geo2= "";
+                name_Figure_geo2 = st.nextToken();
+                Shape shape1 = null;
+                Shape shape2=null;
+                boolean intersect=false;
+                for (Shape elmtShapeAll : listShapeAll) {
+                    if (elmtShapeAll.getName().equals(name_Figure_geo)) {
+                        shape1=elmtShapeAll;
+                    }
+                    if (elmtShapeAll.getName().equals(name_Figure_geo2)) {
+                        shape2= elmtShapeAll;
+                    }
+                }
+                if( shape1==null || shape2==null){
+                    //shape not in listShapeAll
+                }
+                else{
+                    String classElmt = shape2.getClass().getName();
+                    switch (classElmt) {
+                        case ("hk.edu.polyu.comp.comp2021.clevis.model.Rectangle"):
+                            intersect=shape1.intersect((Rectangle) shape2);
+                            break;
+                        case ("hk.edu.polyu.comp.comp2021.clevis.model.Circle"):
+                            intersect=shape1.intersect((Circle) shape2);
+                            break;
+                        case("hk.edu.polyu.comp.comp2021.clevis.model.Square"):
+                            intersect=shape1.intersect((Square) shape2);
+                            break;
+                        case("hk.edu.polyu.comp.comp2021.clevis.model.Line"):
+                            intersect=shape1.intersect((Line) shape2);
+                            break;
+                        case("hk.edu.polyu.comp.comp2021.clevis.model.Group"):
+                            intersect=shape1.intersect((Group) shape2);
+                            break;
+                    }
+                }
+                if(intersect==true){
+                    System.out.println("The two shape intersect with each other");
+                }
+                else{
+                    System.out.println("The two shapes don't intersect with each other");
+                }
+                break;
 
             default:
                 throw new Fig_not_recognized();
