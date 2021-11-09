@@ -103,35 +103,83 @@ public class Line extends Figure_geo {
 
     @Override
     public boolean intersect(Line other) {
-        float coeffDir1= this.coefDir();
-        float coeffDir2= other.coefDir();
-        float b1= this.b();
-        float b2=other.b();
         boolean bool=false;
-        if(coeffDir1==coeffDir2 && b1==b2){
-            if (min(other.getX(),other.getX2())<min(this.getX(),this.getX2())){
-                if(min(this.getX(),this.getX2())<max(other.getX(),other.getX2()) && min(this.getX(),this.getX2())>min(other.getX(),other.getX2()) ){
-                    bool=true;
+        if (getX()==getX2()){
+            if (other.getX()==other.getX2() && getX()==other.getX()){
+                if (min(getY(),getY2())>min(other.getY(), other.getY2())){
+                    if(max(other.getY(),other.getY2())< min(getY(),getY2())){
+                      bool=false;
+                    }
+                    else{
+                        bool=true;
+                    }
                 }
+                else{
+                    if(max(this.getY(),this.getY2())>= min(other.getY(),other.getY2())){
+                       bool=true;
+                    }
+                }
+            }
+            else if(other.getX()==other.getX2() && getX()!=other.getX()){
+                bool=false;
             }
             else{
-                if(min(other.getX(),other.getX2())<max(this.getX(),this.getX2()) && min(other.getX(),other.getX2())>min(this.getX(),this.getX2()) ){
+                float coeffDir2= other.coefDir();
+                float b2=other.b();
+                double Ya= coeffDir2*getX()+b2;
+                if((Ya < max( min(this.getY(),this.getY2()), min(other.getY(),other.getY2()) )) ||
+                        (Ya > min( max(this.getY(),this.getY2()), max(other.getY(), other.getY2()) )) ){
+                    bool=false;
+                }
+                else{
                     bool=true;
                 }
             }
         }
-        if(coeffDir1==coeffDir2 && b1!=b2){
-            bool=false;
-        }
-        else{
-            float Xa=0;
-            Xa= (b2-b1)/(coeffDir1-coeffDir2);
-            if((Xa < max( min(this.getX(),this.getX2()), min(other.getX(),other.getX2()) )) ||
-                    (Xa > min( max(this.getX(),this.getX2()), max(other.getX(), other.getX2()) )) ){
+        else if (other.getX()==other.getX2()){
+            float coeffDir1= this.coefDir();
+            float b1= this.b();
+            double Ya= coeffDir1*getX()+b1;
+            if((Ya < max( min(this.getY(),this.getY2()), min(other.getY(),other.getY2()) )) ||
+                    (Ya > min( max(this.getY(),this.getY2()), max(other.getY(), other.getY2()) )) ){
                 bool=false;
             }
             else{
                 bool=true;
+            }
+
+        }
+        else{
+            float coeffDir1= this.coefDir();
+            float coeffDir2= other.coefDir();
+            float b1= this.b();
+            float b2=other.b();
+
+            if(coeffDir1==coeffDir2 && b1==b2){
+                if (min(other.getX(),other.getX2())<min(this.getX(),this.getX2())){
+                    if(min(this.getX(),this.getX2())<max(other.getX(),other.getX2()) && min(this.getX(),this.getX2())>min(other.getX(),other.getX2()) ){
+                        bool=true;
+                    }
+                }
+                else{
+                    if(min(other.getX(),other.getX2())<max(this.getX(),this.getX2()) && min(other.getX(),other.getX2())>min(this.getX(),this.getX2()) ){
+                        bool=true;
+                    }
+                }
+            }
+            else if(coeffDir1==coeffDir2 && b1!=b2){
+                bool=false;
+            }
+            else{
+                float Xa=0;
+                Xa= (b2-b1)/(coeffDir1-coeffDir2);
+                if((Xa < max( min(this.getX(),this.getX2()), min(other.getX(),other.getX2()) )) ||
+                        (Xa > min( max(this.getX(),this.getX2()), max(other.getX(), other.getX2()) )) ){
+                    bool=false;
+                }
+                else{
+                    bool=true;
+                }
             }
         }
         return bool;
@@ -189,7 +237,41 @@ public class Line extends Figure_geo {
 
     @Override
     public boolean intersect(Group other) {
+        boolean intersect=false;
+        for (Shape shape: other.getListShape()){
+            String classElmt = shape.getClass().getName();
+            switch (classElmt) {
+                case ("hk.edu.polyu.comp.comp2021.clevis.model.Rectangle"):
+                    intersect=this.intersect((Rectangle) shape);
+                    if (intersect){
+                        return true;
+                    }
+                    break;
+                case ("hk.edu.polyu.comp.comp2021.clevis.model.Circle"):
+                    intersect=this.intersect((Circle) shape);
+                    if (intersect){
+                        return true;
+                    }
+                    break;
+                case("hk.edu.polyu.comp.comp2021.clevis.model.Square"):
+                    intersect=this.intersect((Square) shape);
+                    if (intersect){
+                        return true;
+                    }
+                    break;
+                case("hk.edu.polyu.comp.comp2021.clevis.model.Line"):
+                    intersect=this.intersect((Line) shape);
+                    if (intersect){
+                        return true;
+                    }
+                    break;
+                case("hk.edu.polyu.comp.comp2021.clevis.model.Group"):
+                    intersect=this.intersect((Group) shape);
+                    break;
+            }
+        }
         return false;
+
     }
 
 
