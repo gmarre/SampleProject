@@ -1,5 +1,8 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+
 public class Rectangle extends Figure_geo {
     public Rectangle(String name,int zOrder, float x, float y, float w, float h){
         super(name, zOrder, x, y);
@@ -65,30 +68,32 @@ public class Rectangle extends Figure_geo {
         }
     }
 
-    @Override
-    public boolean intersect(Line other) {
-        return false;
+    public Line transformRecInLine1(){
+        String line1 = "";
+        Line li1 = new Line(line1, 0, this.getX(), this.getY(), this.getX()+ this.getW(), this.getY());
+        return li1;
     }
 
-    @Override
-    public boolean intersect(Circle other) {
-        return false;
+    public Line transformRecInLine2(){
+        String line2 = "";
+        Line li2 = new Line(line2, 0, this.getX(), this.getY(), this.getX(), this.getY()+ this.getH());
+        return li2;
     }
 
-    @Override
-    public boolean intersect(Rectangle other) {
-        return false;
+    public Line transformRecInLine3(){
+        String line3 = "";
+        Line li3 = new Line(line3, 0, this.getX(), this.getY()+this.getH(), this.getX()+ this.getW(), this.getY()+ this.getH());
+        return li3;
     }
 
-    @Override
-    public boolean intersect(Square other) {
-        return false;
+    public Line transformRecInLine4(){
+        String line4 = "";
+        Line li4 = new Line(line4, 0, this.getX()+this.getW(), this.getY(),this.getX()+ this.getW(), this.getY()+ this.getH());
+        return li4;
     }
 
-    @Override
-    public boolean intersect(Group other) {
-        return false;
-    }
+
+
 
 
 }

@@ -32,11 +32,7 @@ abstract public class Shape {
 
     abstract public boolean distancePoint(float x, float y);
 
-    abstract public boolean intersect(Line other);
-    abstract public boolean intersect(Circle other);
-    abstract public boolean intersect(Rectangle other);
-    abstract public boolean intersect(Square other);
-    abstract public boolean intersect(Group other);
+
 
 
 

@@ -58,29 +58,13 @@ public class Circle extends Figure_geo {
     }
 
 
-    @Override
-    public boolean intersect(Line other) {
-        return false;
-    }
-
-    @Override
     public boolean intersect(Circle other) {
-        return false;
-    }
-
-    @Override
-    public boolean intersect(Rectangle other) {
-        return false;
-    }
-
-    @Override
-    public boolean intersect(Square other) {
-        return false;
-    }
-
-    @Override
-    public boolean intersect(Group other) {
-        return false;
+        boolean intersect =false;
+        double d=Math.sqrt(Math.pow(this.getX()-other.getX(),2)+Math.pow(this.getY()-other.getY(),2));
+        if(d<=(this.getR()+ other.getR()) && d>=Math.abs(this.getR()- other.getR()) && (d!=0 || this.getR()!=other.getR() )){
+            intersect=true;
+        }
+        return intersect;
     }
 
 

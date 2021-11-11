@@ -101,7 +101,7 @@ public class Line extends Figure_geo {
     }
 
 
-    @Override
+
     public boolean intersect(Line other) {
         boolean bool=false;
         if (getX()==getX2()){
@@ -186,22 +186,67 @@ public class Line extends Figure_geo {
 
     }
 
-    @Override
+
     public boolean intersect(Circle other) {
         boolean bool=false;
-        float a=this.coefDir();
-        float b= this.b();
-        double first=  (1+Math.pow(a,2));
-        double second= 2*(a*b-a*other.getY()- other.getX());
-        double last= Math.pow(b,2)+Math.pow(other.getX(), 2)-2*b* other.getY()+Math.pow(other.getY(), 2)-Math.pow(other.getR(), 2);
-        double det=Math.pow(second,2)-4*first*last;
-        if(det>=0){
-            bool=true;
+        if (getX()==getX2()){
+            double a= 1;
+            double b=-2*other.getY();
+            double c=Math.pow(other.getY(),2)-Math.pow(other.getR(),2)+Math.pow(getX()-other.getX(),2);
+            double delta= Math.pow(b,2)-4*a*c;
+            if(delta>0){
+                double solx1= (-b-Math.sqrt(delta))/(2*a);
+                double solx2= (-b+Math.sqrt(delta))/(2*a);
+                double soly1=a*solx1+b;
+                double soly2=a*solx2+b;
+                if ((soly1<=max(getY(),getY2()) && soly1>=min(getY(),getY2())) &&(solx1<=max(getX(),getX2()) && solx1>=min(getX(),getX2()))){
+                    bool=true;
+                }
+                if ((soly2<=max(getY(),getY2()) && soly2>=min(getY(),getY2())) &&(solx2<=max(getX(),getX2()) && solx2>=min(getX(),getX2()))){
+                    bool=true;
+                }
+                bool=true;
+            }
+            if(delta==0){
+                double solx =-b/2*a;
+                double soly= a*solx+b;
+                if ((soly<=max(getY(),getY2()) && soly>=min(getY(),getY2())) &&(solx<=max(getX(),getX2()) && solx>=min(getX(),getX2()))){
+                    bool=true;
+                }
+            }
         }
+        else {
+            float a=this.coefDir();
+            float b= this.b();
+            double first=  (1+Math.pow(a,2));
+            double second= 2*(a*b-a*other.getY()- other.getX());
+            double last= Math.pow(b,2)+Math.pow(other.getX(), 2)-2*b* other.getY()+Math.pow(other.getY(), 2)-Math.pow(other.getR(), 2);
+            double det=Math.pow(second,2)-4*first*last;
+            if(det>0){
+                double solx1= (-second-Math.sqrt(det))/(2*first);
+                double solx2= (-second+Math.sqrt(det))/(2*first);
+                double soly1=a*solx1+b;
+                double soly2=a*solx2+b;
+                if ((soly1<=max(getY(),getY2()) && soly1>=min(getY(),getY2())) &&(solx1<=max(getX(),getX2()) && solx1>=min(getX(),getX2()))){
+                    bool=true;
+                }
+                if ((soly2<=max(getY(),getY2()) && soly2>=min(getY(),getY2())) &&(solx2<=max(getX(),getX2()) && solx2>=min(getX(),getX2()))){
+                    bool=true;
+                }
+            }
+            else if(det==0){
+                double solx =-second/2*first;
+                double soly= a*solx+b;
+                if ((soly<=max(getY(),getY2()) && soly>=min(getY(),getY2())) &&(solx<=max(getX(),getX2()) && solx>=min(getX(),getX2()))){
+                    bool=true;
+                }
+            }
+        }
+
         return bool;
     }
 
-    @Override
+
     public boolean intersect(Rectangle other) {
         String line1 = "";
         String line2 = "";
@@ -218,7 +263,7 @@ public class Line extends Figure_geo {
         return bool;
     }
 
-    @Override
+
     public boolean intersect(Square other) {
         String line1 = "";
         String line2 = "";
@@ -235,7 +280,7 @@ public class Line extends Figure_geo {
         return bool;
     }
 
-    @Override
+
     public boolean intersect(Group other) {
         boolean intersect=false;
         for (Shape shape: other.getListShape()){

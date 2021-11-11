@@ -70,7 +70,7 @@ public class Clevis {
                 float y = Integer.parseInt(st.nextToken());
                 float w = Integer.parseInt(st.nextToken());
                 float h = Integer.parseInt(st.nextToken());
-                Rectangle rect = new Rectangle(name_Figure_geo,nbShapeCreate, x, y, w, h);
+                Rectangle rect = new Rectangle(name_Figure_geo, nbShapeCreate, x, y, w, h);
                 nbShapeCreate++;
                 //listShapeAll.add(rect);
                 listShapeAll.add(rect);
@@ -81,7 +81,7 @@ public class Clevis {
                 x = Integer.parseInt(st.nextToken());
                 y = Integer.parseInt(st.nextToken());
                 float r = Integer.parseInt(st.nextToken());
-                Circle cir = new Circle(name_Figure_geo,nbShapeCreate, x, y, r);
+                Circle cir = new Circle(name_Figure_geo, nbShapeCreate, x, y, r);
                 nbShapeCreate++;
                 listShapeAll.add(cir);
                 break;
@@ -123,7 +123,7 @@ public class Clevis {
                 for (int i = 0; i < nbShape; i++) {
                     listShapeAll.remove(listShapeGroup[i]);
                 }
-                Group gr = new Group(name_Figure_geo,nbShapeCreate, nbShape, listShapeGroup);
+                Group gr = new Group(name_Figure_geo, nbShapeCreate, nbShape, listShapeGroup);
                 listShapeAll.add(gr);
                 listGroup.add(gr);
                 nbShapeCreate = nbShapeCreate - nbShape + 1;
@@ -136,8 +136,8 @@ public class Clevis {
                         deleteFigure(group);
                         listShapeAll.remove(group);
                         listGroup.remove(group);
-                        int nbshape= group.getSize();
-                        for(int i=0; i<nbshape;i++) {
+                        int nbshape = group.getSize();
+                        for (int i = 0; i < nbshape; i++) {
                             listShapeAll.add(group.getListShape()[i]);
                             System.out.println(group.getListShape()[i].getName());
                         }
@@ -157,40 +157,40 @@ public class Clevis {
                 }
                 break;
 
-            case("list") :
+            case ("list"):
                 name_Figure_geo = st.nextToken();
                 for (Shape elmtShapeAll : listShapeAll) {
-                    if (elmtShapeAll.getName().equals(name_Figure_geo)){
+                    if (elmtShapeAll.getName().equals(name_Figure_geo)) {
                         elmtShapeAll.listFigure();
                     }
                     break;
                 }
                 break;
 
-            case("listAll") :
+            case ("listAll"):
                 for (Shape elmtShapeAll : listShapeAll) {
                     System.out.print("•");
                     elmtShapeAll.listFigure();
                 }
                 break;
 
-            case("quit") :
+            case ("quit"):
                 System.out.println("Thanks, for your participation to Clevis");
                 System.exit(0);
                 break;
 
-            case("move"):
+            case ("move"):
                 name_Figure_geo = st.nextToken();
                 float dx = Float.parseFloat(st.nextToken());
                 float dy = Float.parseFloat(st.nextToken());
                 for (Shape elmtShapeAll : listShapeAll) {
-                    if (elmtShapeAll.getName().equals(name_Figure_geo)){
-                        elmtShapeAll.move(dx,dy);
+                    if (elmtShapeAll.getName().equals(name_Figure_geo)) {
+                        elmtShapeAll.move(dx, dy);
                     }
                 }
                 break;
 
-            case("boundingbox"):
+            case ("boundingbox"):
                 name_Figure_geo = st.nextToken();
                 float boundingboxX = 0;
                 float boundingboxY = 0;
@@ -198,93 +198,222 @@ public class Clevis {
                 float boundingboxH = 0;
 
                 for (Shape elmtShapeAll : listShapeAll) {
-                    if (elmtShapeAll.getName().equals(name_Figure_geo)){
+                    if (elmtShapeAll.getName().equals(name_Figure_geo)) {
                         boundingboxX = elmtShapeAll.min_coordinate_x();
                         boundingboxY = elmtShapeAll.max_coordinate_y();
                         boundingboxW = elmtShapeAll.max_coordinate_x() - elmtShapeAll.min_coordinate_x();
                         boundingboxH = elmtShapeAll.max_coordinate_y() - elmtShapeAll.min_coordinate_y();
                     }
                 }
-                System.out.println(boundingboxX + " " +  boundingboxY + " " + boundingboxW + " " + boundingboxH);
+                System.out.println(boundingboxX + " " + boundingboxY + " " + boundingboxW + " " + boundingboxH);
                 break;
 
-            case("pick-and-move"):
+            case ("pick-and-move"):
                 float pmX = Float.parseFloat(st.nextToken());
                 float pmY = Float.parseFloat(st.nextToken());
                 float pmDx = Float.parseFloat(st.nextToken());
                 float pmDy = Float.parseFloat(st.nextToken());
                 Shape shapeToMove = null;
                 int maxzOrder = 0;
-                List<Shape> listShapePM=new ArrayList<>();
-                for (Shape elmtShapeAll : listShapeAll){
-                    if (elmtShapeAll.distancePoint(pmX, pmY)){
+                List<Shape> listShapePM = new ArrayList<>();
+                for (Shape elmtShapeAll : listShapeAll) {
+                    if (elmtShapeAll.distancePoint(pmX, pmY)) {
                         listShapePM.add(elmtShapeAll);
                     }
                 }
-                if (listShapePM.isEmpty()){
+                if (listShapePM.isEmpty()) {
                     throw new Pick_and_move_Error();
-                }
-                else{
-                    for (Shape elmtShapePM : listShapePM){
-                        if (elmtShapePM.getzOrder() >= maxzOrder){
+                } else {
+                    for (Shape elmtShapePM : listShapePM) {
+                        if (elmtShapePM.getzOrder() >= maxzOrder) {
                             shapeToMove = elmtShapePM;
                         }
                     }
-                    shapeToMove.move(pmDx,pmDy);
+                    shapeToMove.move(pmDx, pmDy);
                 }
 
                 break;
-            case("intersect"):
+            case ("intersect"):
                 name_Figure_geo = st.nextToken();
-                String name_Figure_geo2= "";
+                String name_Figure_geo2 = "";
                 name_Figure_geo2 = st.nextToken();
                 Shape shape1 = null;
-                Shape shape2=null;
-                boolean intersect=false;
+                Shape shape2 = null;
+                boolean intersect = false;//find both shapes in listShapeAll
                 for (Shape elmtShapeAll : listShapeAll) {
                     if (elmtShapeAll.getName().equals(name_Figure_geo)) {
-                        shape1=elmtShapeAll;
+                        shape1 = elmtShapeAll;
                     }
                     if (elmtShapeAll.getName().equals(name_Figure_geo2)) {
-                        shape2= elmtShapeAll;
+                        shape2 = elmtShapeAll;
                     }
                 }
-                if( shape1==null || shape2==null){
-                    //shape not in listShapeAll
+                if (shape1 == null || shape2 == null) {
+                    //shape not in listShapeAll, throw new exception
                 }
-                else{
-                    String classElmt = shape2.getClass().getName();
-                    switch (classElmt) {
-                        case ("hk.edu.polyu.comp.comp2021.clevis.model.Rectangle"):
-                            intersect=shape1.intersect((Rectangle) shape2);
-                            break;
-                        case ("hk.edu.polyu.comp.comp2021.clevis.model.Circle"):
-                            intersect=shape1.intersect((Circle) shape2);
-                            break;
-                        case("hk.edu.polyu.comp.comp2021.clevis.model.Square"):
-                            intersect=shape1.intersect((Square) shape2);
-                            break;
-                        case("hk.edu.polyu.comp.comp2021.clevis.model.Line"):
-                            intersect=shape1.intersect((Line) shape2);
-                            break;
-                        case("hk.edu.polyu.comp.comp2021.clevis.model.Group"):
-                            intersect=shape1.intersect((Group) shape2);
-                            break;
-                    }
+                else {
+                    intersect = generalIntersect(shape1, shape2);
                 }
-                if(intersect==true){
+                if (intersect == true) {
                     System.out.println("The two shape intersect with each other");
                 }
-                else{
+                else {
                     System.out.println("The two shapes don't intersect with each other");
                 }
                 break;
 
-            default:
-                throw new Fig_not_recognized();
-                //Create an error corresponding to * in case of a user command error
+                default:
+                    throw new Fig_not_recognized();
+                        //Create an error corresponding to * in case of a user command error
+                }
         }
+
+
+    public boolean generalIntersect(Shape shape1, Shape shape2){
+        boolean intersect=false;
+        String classElmt1 = shape1.getClass().getName();
+        String classElmt2 = shape2.getClass().getName();
+        switch (classElmt1) {
+            case("hk.edu.polyu.comp.comp2021.clevis.model.Line"):
+                switch (classElmt2){
+                    case ("hk.edu.polyu.comp.comp2021.clevis.model.Rectangle"):
+                        intersect=((Line)shape1).intersect((Rectangle) shape2);
+                        break;
+                    case ("hk.edu.polyu.comp.comp2021.clevis.model.Circle"):
+                        intersect=((Line)shape1).intersect((Circle) shape2);
+                        break;
+                    case("hk.edu.polyu.comp.comp2021.clevis.model.Square"):
+                        intersect=((Line)shape1).intersect((Square) shape2);
+                        break;
+                    case("hk.edu.polyu.comp.comp2021.clevis.model.Line"):
+                        intersect=((Line)shape1).intersect((Line) shape2);
+                        break;
+                    case("hk.edu.polyu.comp.comp2021.clevis.model.Group"):
+                        intersect=((Line)shape1).intersect((Group) shape2);
+                        break;
+                }
+                break;
+            case ("hk.edu.polyu.comp.comp2021.clevis.model.Rectangle"):
+                Line line1=((Rectangle) shape1).transformRecInLine1();//create four lines from the rectangle
+                Line line2=((Rectangle) shape1).transformRecInLine2();
+                Line line3=((Rectangle) shape1).transformRecInLine3();
+                Line line4=((Rectangle) shape1).transformRecInLine4();
+                switch (classElmt2){
+                    case ("hk.edu.polyu.comp.comp2021.clevis.model.Rectangle"):
+                        if (line1.intersect((Rectangle) shape2)||line2.intersect((Rectangle) shape2)|| line3.intersect((Rectangle) shape2)||line4.intersect((Rectangle) shape2) ){
+                            intersect=true;
+                        }
+                        break;
+                    case ("hk.edu.polyu.comp.comp2021.clevis.model.Circle"):
+                        if (line1.intersect((Circle) shape2)||line2.intersect((Circle) shape2)|| line3.intersect((Circle) shape2)||line4.intersect((Circle) shape2) ){
+                            intersect=true;
+                        }
+                        break;
+                    case("hk.edu.polyu.comp.comp2021.clevis.model.Square"):
+                        if (line1.intersect((Square) shape2)||line2.intersect((Square) shape2)|| line3.intersect((Square) shape2)||line4.intersect((Square) shape2) ){
+                            intersect=true;
+                        }
+                        break;
+                    case("hk.edu.polyu.comp.comp2021.clevis.model.Line"):
+                        if (line1.intersect((Line) shape2)||line2.intersect((Line) shape2)|| line3.intersect((Line) shape2)||line4.intersect((Line) shape2) ){
+                            intersect=true;
+                        }
+                        break;
+                    case("hk.edu.polyu.comp.comp2021.clevis.model.Group"):
+                        if (line1.intersect((Group) shape2)||line2.intersect((Group) shape2)|| line3.intersect((Group) shape2)||line4.intersect((Group) shape2) ){
+                            intersect=true;
+                        }
+                        break;
+                }
+                break;
+
+            case ("hk.edu.polyu.comp.comp2021.clevis.model.Circle"):
+                switch (classElmt2){
+                    case ("hk.edu.polyu.comp.comp2021.clevis.model.Rectangle"):
+                        Line line100=((Rectangle) shape2).transformRecInLine1();
+                        Line line200=((Rectangle) shape2).transformRecInLine2();
+                        Line line300=((Rectangle) shape2).transformRecInLine3();
+                        Line line400=((Rectangle) shape2).transformRecInLine4();
+                        if (line100.intersect((Circle) shape1)||line200.intersect((Circle) shape1)|| line300.intersect((Circle) shape1)||line400.intersect((Circle) shape1) ){
+                            intersect=true;
+                        }
+                        break;
+                    case ("hk.edu.polyu.comp.comp2021.clevis.model.Circle"):
+                        intersect=((Circle)shape1).intersect((Circle) shape2);
+                        break;
+                    case("hk.edu.polyu.comp.comp2021.clevis.model.Square"):
+                        Line line1000=((Square) shape2).transformSquareInLine1();//create four lines from the square
+                        Line line2000=((Square) shape2).transformSquareInLine2();
+                        Line line3000=((Square) shape2).transformSquareInLine3();
+                        Line line4000=((Square) shape2).transformSquareInLine4();
+                        if (line1000.intersect((Circle) shape1)||line2000.intersect((Circle) shape1)|| line3000.intersect((Circle) shape1)||line4000.intersect((Circle) shape1)){
+                            intersect=true;
+                        }
+                        break;
+                    case("hk.edu.polyu.comp.comp2021.clevis.model.Line"):
+                        intersect=((Line)shape2).intersect((Circle) shape1);
+                        break;
+
+                    case("hk.edu.polyu.comp.comp2021.clevis.model.Group"):
+                        for (Shape shape: ((Group) shape2).getListShape()){
+                            if(generalIntersect(shape,shape1)){
+                                intersect=true;
+                            }
+                        }
+                        break;
+                }
+
+                break;
+
+
+            case("hk.edu.polyu.comp.comp2021.clevis.model.Square"):
+                Line line10=((Square) shape1).transformSquareInLine1();
+                Line line20=((Square) shape1).transformSquareInLine2();
+                Line line30=((Square) shape1).transformSquareInLine3();
+                Line line40=((Square) shape1).transformSquareInLine4();
+                switch (classElmt2){
+                    case ("hk.edu.polyu.comp.comp2021.clevis.model.Rectangle"):
+                        if (line10.intersect((Rectangle) shape2)||line20.intersect((Rectangle) shape2)|| line30.intersect((Rectangle) shape2)||line40.intersect((Rectangle) shape2) ){
+                            intersect=true;
+                        }
+                        break;
+                    case ("hk.edu.polyu.comp.comp2021.clevis.model.Circle"):
+                        if (line10.intersect((Circle) shape2)||line20.intersect((Circle) shape2)|| line30.intersect((Circle) shape2)||line40.intersect((Circle) shape2) ){
+                            intersect=true;
+                        }
+                        break;
+                    case("hk.edu.polyu.comp.comp2021.clevis.model.Square"):
+                        if (line10.intersect((Square) shape2)||line20.intersect((Square) shape2)|| line30.intersect((Square) shape2)||line40.intersect((Square) shape2) ){
+                            intersect=true;
+                        }
+                        break;
+                    case("hk.edu.polyu.comp.comp2021.clevis.model.Line"):
+                        if (line10.intersect((Line) shape2)||line20.intersect((Line) shape2)|| line30.intersect((Line) shape2)||line40.intersect((Line) shape2) ){
+                            intersect=true;
+                        }
+                        break;
+                    case("hk.edu.polyu.comp.comp2021.clevis.model.Group"):
+                        if (line10.intersect((Group) shape2)||line20.intersect((Group) shape2)|| line30.intersect((Group) shape2)||line40.intersect((Group) shape2) ){
+                            intersect=true;
+                        }
+                        break;
+                }
+                break;
+
+
+            case("hk.edu.polyu.comp.comp2021.clevis.model.Group"):
+                for (Shape shape: ((Group) shape1).getListShape()){
+                    if(generalIntersect(shape,shape2)){
+                        intersect=true;
+                    }
+                }
+                break;
+
+        }
+        return intersect;
     }
+
+
 
 
     public void CheckNameAvailability(String name_Figure_Geo){
