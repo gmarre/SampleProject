@@ -423,6 +423,14 @@ public class Clevis {
                 throw new Name_already_used();
             }
         }
+        for (Group group : listGroup) {
+            for (Shape shape: group.getListShape()){
+                if (shape.getName().equals(name_Figure_Geo)) {
+                    throw new Name_already_used();
+                }
+            }
+
+        }
     }
 
     public void CheckFigurePositiveXY(Shape shape){
