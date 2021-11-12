@@ -148,6 +148,7 @@ public class Clevis {
 
 
             case ("delete"):
+                name_Figure_geo = st.nextToken();
                 for (Shape elmtShapeAll : listShapeAll) {
                     if (elmtShapeAll.getName().equals(name_Figure_geo)) {
                         deleteFigure(elmtShapeAll);
