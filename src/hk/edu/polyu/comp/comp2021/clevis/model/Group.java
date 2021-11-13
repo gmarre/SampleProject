@@ -1,5 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
+import java.awt.*;
+
 import static java.lang.Float.MAX_VALUE;
 
 public class Group extends Shape {
@@ -92,8 +94,12 @@ public class Group extends Shape {
         return false;
     }
 
-
-
+    @Override
+    void draw(Graphics g1) {
+        for (Shape elt : this.listShape ){
+            elt.draw(g1);
+        }
+    }
 
 
 }

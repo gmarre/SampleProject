@@ -1,5 +1,8 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
+import java.awt.*;
+import java.util.List;
+
 abstract public class Shape {
     public Shape(String name, int zOrder) {
         //ecrire dans les fichiers txt et html
@@ -32,7 +35,7 @@ abstract public class Shape {
 
     abstract public boolean distancePoint(float x, float y);
 
-
+    abstract void draw(Graphics g1);
 
 
 

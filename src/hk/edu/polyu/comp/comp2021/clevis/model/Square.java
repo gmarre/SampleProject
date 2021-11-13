@@ -1,5 +1,8 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
 public class Square extends Figure_geo {
     public Square(String name, int zOrder, float x, float y, float l) {
         super(name, zOrder, x, y);
@@ -55,6 +58,13 @@ public class Square extends Figure_geo {
         else {
             return false;
         }
+    }
+
+    @Override
+    void draw(Graphics g1) {
+        Graphics2D g = (Graphics2D) g1;
+        Rectangle2D rect = new Rectangle2D.Double(getX(), getY(), getL(), getL());
+        g.draw(rect);
     }
 
     public Line transformSquareInLine1(){

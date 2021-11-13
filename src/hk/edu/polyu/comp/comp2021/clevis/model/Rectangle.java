@@ -1,5 +1,8 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
@@ -66,6 +69,13 @@ public class Rectangle extends Figure_geo {
         else {
             return false;
         }
+    }
+
+    @Override
+    void draw(Graphics g1) {
+        Graphics2D g = (Graphics2D) g1;
+        Rectangle2D rect = new Rectangle2D.Double(getX(), getY(), getW(), getH());
+        g.draw(rect);
     }
 
     public Line transformRecInLine1(){

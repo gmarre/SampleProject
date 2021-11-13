@@ -11,6 +11,7 @@ public class Clevis {
         //Boucle while + case + depending of the case => different actions + quit
         boolean bool = false;
 
+
         System.out.println("__________________________________________________________________________");
         System.out.println("|                                                                        |");
         System.out.println("|  Hi Friends! Welcome to Command LinE Vector graphIcs Software (CLEVIS) |");
@@ -22,6 +23,7 @@ public class Clevis {
         System.out.println("|    3. Circle: [circle][cir][x][y][r] where x,y,r are int               |");
         System.out.println("|    4. Square: [square][s][x][y][l] where x,y,r are int                 |");
         System.out.println("|________________________________________________________________________|");
+        GUI gui = new GUI();
 
         while (!bool)
             try {
@@ -31,6 +33,7 @@ public class Clevis {
                 String command = bfr.readLine();
                 System.out.println("Your command is : " + command);
                 command_Process(command);
+                gui.drawFinal(listShapeAll);
             }
             catch (IOException e) {
                // e.printStackTrace();

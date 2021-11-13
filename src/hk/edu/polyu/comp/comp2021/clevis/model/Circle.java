@@ -1,5 +1,9 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.util.List;
+
 public class Circle extends Figure_geo {
     public Circle(String name,int zOrder,float x, float y,float r){
         super(name,zOrder , x, y);
@@ -57,6 +61,13 @@ public class Circle extends Figure_geo {
         }
     }
 
+    @Override
+    void draw(Graphics g1) {
+        Graphics2D g = (Graphics2D) g1;
+        Ellipse2D circle = new Ellipse2D.Double(getX() - getR(), getY() - getR(), getR() * 2.0, getR() * 2.0);
+        g.draw(circle);
+    }
+
 
     public boolean intersect(Circle other) {
         boolean intersect =false;
@@ -66,8 +77,5 @@ public class Circle extends Figure_geo {
         }
         return intersect;
     }
-
-
-
 
 }

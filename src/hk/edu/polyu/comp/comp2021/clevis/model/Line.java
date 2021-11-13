@@ -1,5 +1,9 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
@@ -100,6 +104,11 @@ public class Line extends Figure_geo {
         }
     }
 
+    @Override
+    void draw(Graphics g1) {
+        Graphics2D g = (Graphics2D) g1;
+        g.draw(new Line2D.Double(getX(), getY(), getX2(), getY2()));
+    }
 
 
     public boolean intersect(Line other) {
