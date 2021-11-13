@@ -79,7 +79,6 @@ public class Clevis {
                 CheckPositive(h);
                 Rectangle rect = new Rectangle(name_Figure_geo, nbShapeCreate, x, y, w, h);
                 nbShapeCreate++;
-                //listShapeAll.add(rect);
                 listShapeAll.add(rect);
                 break;
             case ("circle"):
@@ -203,6 +202,9 @@ public class Clevis {
                 for (Shape elmtShapeAll : listShapeAll) {
                     if (elmtShapeAll.getName().equals(name_Figure_geo)) {
                         elmtShapeAll.move(dx, dy);
+                    }
+                    else{
+                        System.out.println("Shape not recognized");
                     }
                 }
                 break;

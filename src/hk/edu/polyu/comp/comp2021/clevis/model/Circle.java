@@ -18,9 +18,21 @@ public class Circle extends Figure_geo {
 
     @Override
     public void move(float dx, float dy) {
-        setX(getX()+dx);
-        setY(getY()+dy);
-        System.out.println("The new Circle coordinates are : (" + this.getX() + "," + this.getY() + ")");
+        try {
+            if (getX()+dx > 0){
+                setX(getX()+dx);
+                setY(getY()+dy);
+                System.out.println("The new Circle coordinates are : (" + this.getX() + "," + this.getY() + ")");
+            }
+            else{
+                throw new FigureNotInGridError();
+            }
+        }
+        catch (FigureNotInGridError f){
+            System.out.println("The new coordinates are not in the grid");
+        }
+
+
     }
 
     @Override
@@ -78,4 +90,5 @@ public class Circle extends Figure_geo {
         return intersect;
     }
 
+    static class FigureNotInGridError extends Error{}
 }
