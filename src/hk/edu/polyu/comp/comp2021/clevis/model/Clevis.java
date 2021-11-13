@@ -46,7 +46,7 @@ public class Clevis {
                 System.out.println("Name already been used, please do it again");
             }
             catch(FigureNotInGridError g){
-                System.out.println("Your shape could not be drawn on the grid (min X or Y coordinates negative)");
+                System.out.println("Your shape could not be drawn on the grid");
             }
             catch(Pick_and_move_Error pm){
                 System.out.println("Pick and move impossible, no shape found in these coordinates");
@@ -70,9 +70,13 @@ public class Clevis {
                 name_Figure_geo = st.nextToken();
                 CheckNameAvailability(name_Figure_geo);
                 float x = Integer.parseInt(st.nextToken());
+                CheckPositive(x);
                 float y = Integer.parseInt(st.nextToken());
+                CheckPositive(y);
                 float w = Integer.parseInt(st.nextToken());
+                CheckPositive(w);
                 float h = Integer.parseInt(st.nextToken());
+                CheckPositive(h);
                 Rectangle rect = new Rectangle(name_Figure_geo, nbShapeCreate, x, y, w, h);
                 nbShapeCreate++;
                 //listShapeAll.add(rect);
@@ -82,8 +86,11 @@ public class Clevis {
                 name_Figure_geo = st.nextToken();
                 CheckNameAvailability(name_Figure_geo);
                 x = Integer.parseInt(st.nextToken());
+                CheckPositive(x);
                 y = Integer.parseInt(st.nextToken());
+                CheckPositive(y);
                 float r = Integer.parseInt(st.nextToken());
+                CheckPositive(r);
                 Circle cir = new Circle(name_Figure_geo, nbShapeCreate, x, y, r);
                 nbShapeCreate++;
                 listShapeAll.add(cir);
@@ -92,9 +99,13 @@ public class Clevis {
                 name_Figure_geo = st.nextToken();
                 CheckNameAvailability(name_Figure_geo);
                 x = Integer.parseInt(st.nextToken());
+                CheckPositive(x);
                 y = Integer.parseInt(st.nextToken());
+                CheckPositive(y);
                 float x2 = Integer.parseInt(st.nextToken());
+                CheckPositive(x2);
                 float y2 = Integer.parseInt(st.nextToken());
+                CheckPositive(y2);
                 Line li = new Line(name_Figure_geo, nbShapeCreate, x, y, x2, y2);
                 nbShapeCreate++;
                 listShapeAll.add(li);
@@ -103,7 +114,9 @@ public class Clevis {
                 name_Figure_geo = st.nextToken();
                 CheckNameAvailability(name_Figure_geo);
                 x = Integer.parseInt(st.nextToken());
+                CheckPositive(x);
                 y = Integer.parseInt(st.nextToken());
+                CheckPositive(y);
                 float l = Integer.parseInt(st.nextToken());
                 Square sq = new Square(name_Figure_geo, nbShapeCreate, x, y, l);
                 nbShapeCreate++;
@@ -235,8 +248,8 @@ public class Clevis {
                     }
                     shapeToMove.move(pmDx, pmDy);
                 }
-
                 break;
+
             case ("intersect"):
                 name_Figure_geo = st.nextToken();
                 String name_Figure_geo2 = "";
@@ -330,7 +343,6 @@ public class Clevis {
                         break;
                 }
                 break;
-
             case ("hk.edu.polyu.comp.comp2021.clevis.model.Circle"):
                 switch (classElmt2){
                     case ("hk.edu.polyu.comp.comp2021.clevis.model.Rectangle"):
@@ -366,10 +378,7 @@ public class Clevis {
                         }
                         break;
                 }
-
                 break;
-
-
             case("hk.edu.polyu.comp.comp2021.clevis.model.Square"):
                 Line line10=((Square) shape1).transformSquareInLine1();
                 Line line20=((Square) shape1).transformSquareInLine2();
@@ -403,8 +412,6 @@ public class Clevis {
                         break;
                 }
                 break;
-
-
             case("hk.edu.polyu.comp.comp2021.clevis.model.Group"):
                 for (Shape shape: ((Group) shape1).getListShape()){
                     if(generalIntersect(shape,shape2)){
@@ -412,7 +419,6 @@ public class Clevis {
                     }
                 }
                 break;
-
         }
         return intersect;
     }
@@ -436,8 +442,8 @@ public class Clevis {
         }
     }
 
-    public void CheckFigurePositiveXY(Shape shape){
-        if (shape.min_coordinate_x()<0 || shape.min_coordinate_y()<0 ){
+    public void CheckPositive(double i){
+        if (i<0 ){
             throw new FigureNotInGridError();
         }
     }
